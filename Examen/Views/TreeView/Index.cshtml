@@ -1,0 +1,26 @@
+﻿@model IEnumerable<Examen.Models.TreeViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="display-4">Arbol</h1>
+<hr />
+<div class="list-group">
+    @foreach (var item in Model)
+    {
+        <div class="list-group-item list-group-item-action">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">@item.Nombre</h5>
+                <small>@item.Correo</small>
+            </div>
+            <ul class="list-group">
+                @foreach (var sub in item.Asignado)
+                {
+                    <li  asp-action="Detalle" asp-controller="Empleado" asp-route-id="@item.IdEmpleado" class="list-group-item">@sub.NombreCompleto</li>
+                    <a class="btn btn-info btn-block"  asp-action="Detalle" asp-controller="Empleado" asp-route-id="@sub.IdEmpleado" >Detalle</a>
+                    <br />
+                }
+            </ul>
+        </div>
+    }
+</div>

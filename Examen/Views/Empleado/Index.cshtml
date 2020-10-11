@@ -1,0 +1,94 @@
+﻿@model IPagedList<Examen.Models.EmpleadoModel>
+@using X.PagedList.Mvc.Core
+@using X.PagedList
+@using X.PagedList.Mvc.Core.Common
+@{
+    ViewData["Title"] = "Empleados";
+}
+
+<h1 class="display-4">Empleados</h1>
+<div class="text-righ form-inline">
+    <form method="get" action=@Url.Action("Index","Empleado")>
+        <div class="btn-group" role="group">
+            @Html.TextBox("_NombreArea", null, new
+            {
+                placeholder = "Buscar Area",
+                @class = "form-control btn-group"
+            })
+            <button class="btn btn-primary" type="submit">Buscar</button>
+        </div>
+
+    </form>
+</div>
+<hr />
+<p>
+    <a class="btn btn-info" asp-action="AgregarEmpleado">Agregar Empleado</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Correo
+            </th>
+            <th>
+                Area
+            </th>
+            <th>
+                Foto
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Correo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Area)
+                </td>
+                <td>
+                    @{
+                        if (item.Foto != null)
+                        {
+                            <img class="img-fluid img-thumbnail w-25 p-2" src="data:image/jpg;base64,@Convert.ToBase64String(item.Foto)" />
+                        }
+                        else
+                        {
+                            <span>Sin foto</span>
+                        }
+
+                    }
+                </td>
+                <td>
+                    <a class="btn btn-secondary" asp-action="Editar" asp-route-id="@item.IdEmpleado">Edit</a>
+                    <a class="btn btn-info" asp-action="Detalle" asp-route-id="@item.IdEmpleado">Details</a>
+                    <a class="btn btn-danger" asp-action="Eliminar" asp-route-id="@item.IdEmpleado" onclick=" return confirm('Esta seguro de eliminar @item.Nombre ?')">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<hr />
+<div class="row">
+    <div class="col float-left">
+        Pagina @(Model.PageCount<Model.PageNumber ? 0:Model.PageNumber) de @Model.PageCount
+    </div>
+    <div class="col float-right">
+        @Html.PagedListPager(Model, page =>
+            Url.Action("Index", new { page = page }),
+            new PagedListRenderOptions
+                 {
+                LiElementClasses = new string[] { "page-item" },
+                PageClasses = new string[] { "page-link" }
+        })
+    </div>
+</div>

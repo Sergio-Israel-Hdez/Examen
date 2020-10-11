@@ -1,0 +1,66 @@
+﻿@model IPagedList<Examen.Models.DB.Area>
+@using X.PagedList.Mvc.Core
+@using X.PagedList
+@using X.PagedList.Mvc.Core.Common
+@{
+    ViewData["Title"] = "Areas";
+}
+
+<h1 class="display-4">Areas</h1>
+
+<p>
+    <a class="btn btn-info" asp-action="AgregarArea">Agregar Area</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Descripción
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    <a class="btn btn-secondary" asp-action="Editar" asp-route-id="@item.IdArea">Edit</a> |
+                    <a class="btn btn-info" asp-action="Detalle" asp-route-id="@item.IdArea">Details</a> |
+                    <a class="btn btn-danger" asp-action="Eliminar" asp-route-id="@item.IdArea" onclick=" return confirm('Esta seguro de eliminar @item.Nombre ?')">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="row">
+    <div class="col float-left">
+        Pagina @(Model.PageCount<Model.PageNumber ? 0:Model.PageNumber) de @Model.PageCount
+    </div>
+    <div class="col float-right">
+        @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))*@
+        @*@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page =>
+            Url.Action("Index", new { page = page }),
+            new PagedListRenderOptions
+                 {
+                LiElementClasses = new string[] { "page-item" },
+                PageClasses = new string[] { "page-link" }
+        })*@
+        @Html.PagedListPager(Model, page =>
+            Url.Action("Index", new { page = page }),
+            new PagedListRenderOptions
+                 {
+                LiElementClasses = new string[] { "page-item" },
+                PageClasses = new string[] { "page-link" }
+        })
+    </div>
+</div>

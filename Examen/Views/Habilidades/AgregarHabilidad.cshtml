@@ -1,0 +1,108 @@
+﻿@model Examen.Models.DB.EmpleadoHabilidad
+
+@{
+    ViewData["Title"] = "Agregar Habilidad";
+}
+
+<h1 class="display-4">Agregar Habilidad</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AgregarHabilidad">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdEmpleado" value="@ViewBag.emplado" />
+
+            <div class="form-group">
+                <label asp-for="NombreHabilidad" class="control-label"></label>
+                <input asp-for="NombreHabilidad" class="form-control" />
+                <span asp-validation-for="NombreHabilidad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-controller="Empleado">Regresar</a>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        $(function () {
+            var availableTags = [
+                "ActionScript",
+                "AppleScript",
+                "Asp",
+                "BASIC",
+                "C",
+                "C++",
+                "Clojure",
+                "COBOL",
+                "ColdFusion",
+                "Erlang",
+                "Fortran",
+                "Groovy",
+                "Haskell",
+                "Java",
+                "JavaScript",
+                "Lisp",
+                "Perl",
+                "PHP",
+                "Python",
+                "Ruby",
+                "Scala",
+                "Scheme",
+                "C#",
+                "SQL",
+                "PL/SQL",
+                "Node JS",
+                "Entity Framework",
+                "ASP.NET Core",
+                "Xamarin",
+                "TypeScript",
+                "CSS",
+                "SASS",
+                "WebPack",
+                "Linq",
+                "AngularJS",
+                "Angular 2+",
+                "VueJS",
+                "ReatJS",
+                "WordPress",
+                "Json",
+                "Scrum",
+                "Git",
+                "Html",
+                ".NET",
+            ];
+            $("#NombreHabilidad").autocomplete({
+                source: availableTags
+            });
+        });
+        //$(document).ready(function () {
+        //    $("#NombreHabilidad").autocomplete({
+        //        source: function (request, response) {
+        //            $.ajax({
+        //                url: "/Habilidades/SugerenciasHabilidad",
+        //                type: "GET",
+        //                dataType: "json",
+        //                success: function (data) {
+        //                    response($.map(data, function (item) {
+        //                        return { label: item.NombreHabilidad, value: item.NombreHabilidad };
+        //                    }))
+
+        //                }
+        //            })
+        //        },
+        //        messages: {
+        //            noResults: "",
+        //            results: function (count) {
+        //                return count + (count > 1 ? ' results' : ' result ') + ' found';
+        //            }
+        //        }
+        //    });
+        //})
+    </script>
+}
+

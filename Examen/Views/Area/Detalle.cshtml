@@ -1,0 +1,30 @@
+﻿@model Examen.Models.DB.Area
+
+@{
+    ViewData["Title"] = "Detalle";
+}
+
+<h1 class="display-4">Detalle</h1>
+
+<div>
+    <h4>Area</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Editar" asp-route-id="@Model.IdArea">Editar</a> |
+    <a asp-action="Index">Regresar</a>
+</div>
